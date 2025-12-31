@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Master's Guide | Go Masters Abroad</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        /* ==================== 1. CORE STYLES ==================== */
+        :root {
+            --primary-red: #D31027;
+            --brand-gradient: linear-gradient(90deg, #D31027 0%, #1a2a6c 100%);
+            --navy: #1a2a6c;
+            --off-white: #f8f9fa;
+            --text-dark: #2d3436;
+            --text-gray: #636e72;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--off-white); color: var(--text-dark); line-height: 1.6; display: flex; flex-direction: column; min-height: 100vh; }
+        a { text-decoration: none; transition: 0.3s; }
+
+        /* --- Header --- */
+        header { background: #fff; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .logo-text { font-weight: 800; font-size: 1.5rem; background: var(--brand-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .back-link { font-weight: 600; color: var(--navy); display: flex; align-items: center; gap: 5px; }
+        .back-link:hover { color: var(--primary-red); }
+
+        /* ==================== 2. ARTICLE LAYOUT ==================== */
+        .article-wrapper {
+            max-width: 1200px; margin: 30px auto; padding: 0 20px;
+            display: grid; grid-template-columns: 2fr 1fr; gap: 40px; flex: 1;
+        }
+
+        .article-header h1 { font-size: 2.2rem; color: var(--navy); margin-bottom: 10px; line-height: 1.2; }
+        .article-meta { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 20px; display: flex; gap: 15px; }
+        .main-image { width: 100%; height: 350px; object-fit: cover; border-radius: 15px; margin-bottom: 30px; }
+
+        /* Interactive Tabs */
+        .tabs-container { background: #fff; padding: 25px; border-radius: 15px; box-shadow: var(--shadow); margin-bottom: 30px; }
+        .tab-buttons { display: flex; border-bottom: 2px solid #eee; margin-bottom: 20px; }
+        .tab-btn { padding: 10px 20px; background: none; border: none; font-size: 1rem; font-weight: 600; color: var(--text-gray); cursor: pointer; position: relative; }
+        .tab-btn.active { color: var(--primary-red); }
+        .tab-btn.active::after { content: ''; position: absolute; bottom: -2px; left: 0; width: 100%; height: 3px; background: var(--primary-red); }
+        .tab-content { display: none; animation: fadeIn 0.5s; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Lead Magnet Box */
+        .inline-cta { background: linear-gradient(135deg, #fff5f5 0%, #fff 100%); border-left: 5px solid var(--primary-red); padding: 25px; margin: 30px 0; border-radius: 10px; }
+        .inline-cta h3 { color: var(--primary-red); margin-bottom: 10px; }
+        .inline-cta button { margin-top: 15px; background: var(--navy); color: #fff; padding: 10px 25px; border: none; border-radius: 30px; cursor: pointer; font-weight: 600; }
+
+        /* ==================== 3. SIDEBAR & TAGS ==================== */
+        .sidebar { position: sticky; top: 100px; height: fit-content; }
+        
+        .consultation-card { background: #fff; padding: 30px; border-radius: 15px; box-shadow: var(--shadow); text-align: center; border-top: 5px solid var(--primary-red); }
+        .btn-full { display: block; width: 100%; padding: 12px; background: var(--brand-gradient); color: #fff; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn-full:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(211, 16, 39, 0.3); }
+
+        .tag-cloud { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+        .tag-pill {
+            background: #eee; padding: 6px 14px; border-radius: 20px; font-size: 0.85rem; color: var(--text-dark); cursor: pointer; transition: 0.2s;
+        }
+        .tag-pill:hover { background: var(--primary-red); color: white; }
+
+        /* ==================== 4. FOOTER ==================== */
+        footer { background: #111; color: white; padding: 50px 0 20px; margin-top: auto; }
+        .footer-content { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; padding: 0 20px; }
+        .footer-col h4 { color: var(--primary-red); margin-bottom: 20px; font-size: 1.2rem; }
+        .footer-col p { color: #aaa; margin-bottom: 10px; font-size: 0.9rem; }
+        .footer-links a { display: block; color: #aaa; margin-bottom: 8px; font-size: 0.95rem; }
+        .footer-links a:hover { color: white; padding-left: 5px; }
+        .social-icons a { color: white; margin-right: 15px; font-size: 1.2rem; }
+        .copyright { text-align: center; border-top: 1px solid #333; margin-top: 40px; padding-top: 20px; color: #666; font-size: 0.8rem; }
+
+        /* ==================== 5. CHATBOT ==================== */
+        .chat-toggle { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: var(--brand-gradient); border-radius: 50%; display: flex; justify-content: center; align-items: center; color: white; font-size: 24px; cursor: pointer; box-shadow: 0 5px 20px rgba(0,0,0,0.2); z-index: 1000; transition: 0.3s; }
+        .chat-toggle:hover { transform: scale(1.1); }
+
+        .chat-window { display: none; position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px; background: #fff; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); z-index: 1000; flex-direction: column; overflow: hidden; border: 1px solid #eee; }
+        .chat-header { background: var(--brand-gradient); padding: 15px; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .chat-body { flex-grow: 1; padding: 15px; overflow-y: auto; background: #f9f9f9; }
+        .bot-msg, .user-msg { padding: 10px 15px; border-radius: 10px; margin-bottom: 10px; font-size: 0.9rem; max-width: 80%; }
+        .bot-msg { background: #eee; color: #333; align-self: flex-start; }
+        .user-msg { background: var(--primary-red); color: white; align-self: flex-end; margin-left: auto; }
+        
+        .chat-options { padding: 10px; background: #fff; border-top: 1px solid #eee; display: flex; flex-wrap: wrap; gap: 5px; }
+        .option-btn { font-size: 0.8rem; padding: 8px 12px; border: 1px solid var(--navy); color: var(--navy); background: white; border-radius: 20px; cursor: pointer; transition: 0.2s; }
+        .option-btn:hover { background: var(--navy); color: white; }
+
+        @media (max-width: 768px) {
+            .article-wrapper { grid-template-columns: 1fr; }
+            .sidebar { position: static; }
+            .chat-window { width: 90%; right: 5%; bottom: 90px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+        <div class="logo-text">GO MASTERS</div>
+        <div style="width: 80px;"></div>
+    </header>
+
+    <div class="article-wrapper">
+        
+        <main>
+            <div class="article-header">
+                <span style="color: var(--primary-red); font-weight: 700; text-transform: uppercase; font-size: 0.8rem;">Study Guide</span>
+                <h1>Top Master's Programs in New York: The Ultimate Guide 2025</h1>
+                <div class="article-meta">
+                    <span><i class="far fa-clock"></i> 5 min read</span>
+                    <span><i class="far fa-user"></i> By Team Go Masters</span>
+                </div>
+            </div>
+
+            <img src="https://images.unsplash.com/photo-1496469888073-80de7e952517?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="New York City" class="main-image">
+
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">New York isn't just a city; it's a global classroom. For international students, it offers unparalleled access to Wall Street, the UN, and Silicon Alley.</p>
+
+            <div class="tabs-container">
+                <div class="tab-buttons">
+                    <button class="tab-btn active" onclick="openTab(event, 'overview')">Overview</button>
+                    <button class="tab-btn" onclick="openTab(event, 'requirements')">Requirements</button>
+                    <button class="tab-btn" onclick="openTab(event, 'costs')">Costs</button>
+                </div>
+
+                <div id="overview" class="tab-content active">
+                    <h3>Why Choose New York?</h3>
+                    <p>Home to Columbia, NYU, and Cornell Tech, NY offers high employability. 85% of graduates find jobs within 3 months.</p>
+                </div>
+
+                <div id="requirements" class="tab-content">
+                    <h3>Admission Checklist</h3>
+                    <ul>
+                        <li><strong>GPA:</strong> Generally 3.0+ (varies by uni).</li>
+                        <li><strong>GRE:</strong> 310+ (Waived by some unis).</li>
+                        <li><strong>IELTS/TOEFL:</strong> 6.5 / 90+.</li>
+                    </ul>
+                </div>
+
+                <div id="costs" class="tab-content">
+                    <h3>Budgeting</h3>
+                    <ul>
+                        <li><strong>Tuition:</strong> $35k - $60k per year.</li>
+                        <li><strong>Living:</strong> $1,500 - $2,000 per month.</li>
+                        <li><strong>Scholarships:</strong> Merit-based aid available up to 50%.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="inline-cta">
+                <h3><i class="fas fa-check-circle"></i> Want a Free Profile Assessment?</h3>
+                <p>Don't guess your chances. Get a free profile evaluation from our experts. We can check your eligibility instantly.</p>
+                <button onclick="triggerChatAssessment()">Start Free Assessment</button>
+            </div>
+
+            <h2>Top Universities</h2>
+            <p>1. <strong>Columbia University:</strong> Ivy League prestige.<br>
+            2. <strong>New York University (NYU):</strong> Best for Business & Arts.<br>
+            3. <strong>SUNY Buffalo:</strong> Affordable and high ROI.</p>
+        </main>
+
+        <aside class="sidebar">
+            <div class="consultation-card">
+                <h3>Get a Free Consultation</h3>
+                <p>Fill this form and our counselors will contact you within 24 hours.</p>
+                <form action="https://formspree.io/f/xnjqkeev" method="POST">
+                    <input type="text" name="name" placeholder="Name" required style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                    <input type="email" name="email" placeholder="Email" required style="width:100%; padding:10px; margin-bottom:10px; border:1px solid #ddd; border-radius:5px;">
+                    <input type="tel" name="phone" placeholder="Phone Number" required style="width:100%; padding:10px; margin-bottom:15px; border:1px solid #ddd; border-radius:5px;">
+                    <button type="submit" class="btn-full">Request Call Back</button>
+                </form>
+            </div>
+            
+            <div style="margin-top: 30px; background: white; padding: 20px; border-radius: 15px; box-shadow: var(--shadow);">
+                <h4 style="color: var(--navy); margin-bottom: 15px;">Related Topics</h4>
+                <div class="tag-cloud">
+                    <a href="index.html?filter=scholarship" class="tag-pill">#Scholarships</a>
+                    <a href="index.html?filter=visa" class="tag-pill">#VisaTips</a>
+                    <a href="index.html?filter=usa" class="tag-pill">#StudyInUSA</a>
+                    <a href="index.html?filter=uk" class="tag-pill">#StudyInUK</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h4>GO MASTERS</h4>
+                <p>Your trusted partner for global education. We help students achieve their dreams of studying abroad with expert guidance.</p>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Quick Links</h4>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="index.html?filter=usa">Study in USA</a>
+                    <a href="index.html?filter=uk">Study in UK</a>
+                    <a href="https://formspree.io/f/xnjqkeev">Contact Us</a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h4>Contact Info</h4>
+                <p><i class="fas fa-map-marker-alt"></i> Hyderabad, India</p>
+                <p><i class="fas fa-envelope"></i> contact@gomasters.com</p>
+                <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+            </div>
+        </div>
+        <div class="copyright">
+            &copy; 2025 Go Masters Abroad. All rights reserved.
+        </div>
+    </footer>
+
+    <div class="chat-toggle" onclick="toggleChat()">
+        <i class="fas fa-comment-dots"></i>
+    </div>
+
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span><i class="fas fa-robot"></i> Go Masters AI</span>
+            <span style="cursor: pointer;" onclick="toggleChat()">&times;</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="bot-msg">Hi there! 👋 I can help you find info about universities, costs, or eligibility. What do you need?</div>
+        </div>
+        <div class="chat-options" id="chatOptions">
+            <button class="option-btn" onclick="handleOption('eligible')">Check Eligibility</button>
+            <button class="option-btn" onclick="handleOption('cost')">Cost of Study</button>
+            <button class="option-btn" onclick="handleOption('human')">Talk to Expert</button>
+        </div>
+    </div>
+
+    <script>
+        // Tab Logic
+        function openTab(evt, tabName) {
+            var i, tabContent, tabButtons;
+            tabContent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabContent.length; i++) {
+                tabContent[i].classList.remove("active");
+            }
+            tabButtons = document.getElementsByClassName("tab-btn");
+            for (i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        // Chatbot Logic
+        function toggleChat() {
+            const chat = document.getElementById('chatWindow');
+            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+        }
+
+        function triggerChatAssessment() {
+            toggleChat();
+            handleOption('eligible');
+        }
+
+        function addMessage(text, sender) {
+            const body = document.getElementById('chatBody');
+            const msg = document.createElement('div');
+            msg.className = sender === 'bot' ? 'bot-msg' : 'user-msg';
+            msg.innerHTML = text; // Allow HTML in messages
+            body.appendChild(msg);
+            body.scrollTop = body.scrollHeight;
+        }
+
+        function handleOption(option) {
+            let userText = "";
+            if(option === 'eligible') userText = "Check my eligibility";
+            if(option === 'cost') userText = "How much does it cost?";
+            if(option === 'human') userText = "I want to speak to a human";
+            
+            addMessage(userText, 'user');
+
+            // Simulate Bot "Browsing/Thinking"
+            setTimeout(() => {
+                if (option === 'eligible') {
+                    addMessage("<i class='fas fa-search'></i> Checking latest 2025 criteria online...", 'bot');
+                    setTimeout(() => {
+                        addMessage("Found it! Generally, top universities require a <strong>3.0 GPA</strong> and <strong>IELTS 6.5</strong>. <br><br>However, many universities accept lower scores with a strong Statement of Purpose.", 'bot');
+                        addMessage("Would you like a list of universities matching your profile?", 'bot');
+                        updateOptions('scholarship');
+                    }, 1500);
+                } else if (option === 'cost') {
+                    addMessage("<i class='fas fa-globe'></i> Scanning tuition fees...", 'bot');
+                    setTimeout(() => {
+                        addMessage("Tuition varies by country: <br>🇺🇸 USA: $30k-$60k <br>🇬🇧 UK: £15k-£30k <br>🇩🇪 Germany: Often Free!", 'bot');
+                        updateOptions('scholarship');
+                    }, 1500);
+                } else if (option === 'human') {
+                    addMessage("Sure! Our experts are online. Connect with us instantly on Instagram:", 'bot');
+                    updateOptions('form');
+                }
+            }, 500);
+        }
+
+        function updateOptions(type) {
+            const opts = document.getElementById('chatOptions');
+            opts.innerHTML = ''; 
+
+            if(type === 'form') {
+                opts.innerHTML = `<a href="https://www.instagram.com/gomasters.hyd/" target="_blank" class="option-btn" style="background:var(--primary-red); color:white; text-align:center; width:100%;">Message on Instagram</a>`;
+            } else if (type === 'scholarship') {
+                opts.innerHTML = `
+                    <button class="option-btn" onclick="handleOption('human')">Get University List</button>
+                    <button class="option-btn" onclick="toggleChat()">Close Chat</button>
+                `;
+            }
+        }
+    </script>
+</body>
+</html>

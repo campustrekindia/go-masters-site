@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Masters Abroad | Premium Education</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* ==================== 
+           1. PREMIUM THEME CONFIG 
+           ==================== */
+        :root {
+            --primary-red: #D31027; 
+            --dark-navy: #1a2a6c;
+            /* A richer, deeper gradient */
+            --brand-gradient: linear-gradient(135deg, #D31027 0%, #1a2a6c 100%);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --bg-color: #f4f7f6;
+            --text-dark: #2d3436;
+            --text-light: #636e72;
+            --card-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            --hover-shadow: 0 20px 50px rgba(211, 16, 39, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+        /* Smooth Fade In Animation */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ==================== 
+           2. GLASS HEADER 
+           ==================== */
+        header {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px); /* The "Glass" effect */
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .logo-img { height: 45px; object-fit: contain; }
+        nav { display: flex; align-items: center; gap: 15px; }
+        
+        /* Modern Buttons */
+        .btn { padding: 12px 25px; border-radius: 50px; text-decoration: none; font-weight: 600; cursor: pointer; border: none; transition: all 0.3s ease; font-size: 0.9rem; letter-spacing: 0.5px; }
+        
+        .btn-register { 
+            background: transparent; 
+            color: var(--primary-red); 
+            border: 2px solid rgba(211, 16, 39, 0.1);
+        }
+        .btn-register:hover { border-color: var(--primary-red); transform: translateY(-2px); }
+
+        .btn-consult { 
+            background: var(--brand-gradient); 
+            color: #fff; 
+            box-shadow: 0 10px 20px rgba(211, 16, 39, 0.2);
+        }
+        .btn-consult:hover { transform: translateY(-2px); box-shadow: 0 15px 30px rgba(211, 16, 39, 0.3); }
+
+        /* ==================== 
+           3. CINEMATIC HERO SECTION 
+           ==================== */
+        .hero {
+            position: relative;
+            /* Gradient blended with a subtle world map/travel image */
+            background: linear-gradient(135deg, rgba(211, 16, 39, 0.9) 0%, rgba(26, 42, 108, 0.9) 100%), 
+                        url('https://images.unsplash.com/photo-1524850011238-e3d235c2d4a1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: #fff;
+            text-align: center;
+            padding: 6rem 1rem 8rem; /* Extra bottom padding for overlap */
+            clip-path: ellipse(150% 100% at 50% 0%); /* Modern curved bottom */
+            animation: fadeUp 0.8s ease-out;
+        }
+        
+        .hero h1 { 
+            font-size: 3.5rem; 
+            font-weight: 800; 
+            margin-bottom: 15px; 
+            letter-spacing: -1px; 
+            text-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .hero p { 
+            font-size: 1.25rem; 
+            opacity: 0.9; 
+            max-width: 600px; 
+            margin: 0 auto; 
+            font-weight: 300;
+        }
+
+        /* ==================== 
+           4. FLOATING FILTER BAR 
+           ==================== */
+        .filter-container {
+            display: flex; justify-content: center; gap: 15px;
+            margin: -40px auto 50px; /* Pulls it up into the Hero */
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 10;
+            animation: fadeUp 1s ease-out 0.2s backwards;
+        }
+        .filter-btn {
+            background: #fff; border: none; padding: 14px 28px;
+            border-radius: 50px; font-weight: 600; color: var(--text-light);
+            cursor: pointer; box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+            display: flex; align-items: center; gap: 8px;
+        }
+        .filter-btn i { font-size: 1.1rem; }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--dark-navy); color: #fff; transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(26, 42, 108, 0.3);
+        }
+
+        /* ==================== 
+           5. PREMIUM CARD GRID 
+           ==================== */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 80px; flex: 1; }
+        .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        
+        .blog-card {
+            background: #fff; border-radius: 20px; overflow: hidden;
+            box-shadow: var(--card-shadow); transition: all 0.4s ease;
+            display: flex; flex-direction: column;
+            border: 1px solid rgba(0,0,0,0.02);
+            animation: fadeUp 0.8s ease-out backwards;
+        }
+        /* Stagger animation for cards */
+        .blog-card:nth-child(1) { animation-delay: 0.2s; }
+        .blog-card:nth-child(2) { animation-delay: 0.3s; }
+        .blog-card:nth-child(3) { animation-delay: 0.4s; }
+        .blog-card:nth-child(4) { animation-delay: 0.5s; }
+
+        .blog-card:hover { transform: translateY(-12px); box-shadow: var(--hover-shadow); }
+
+        .card-img-wrapper { overflow: hidden; height: 220px; position: relative; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .blog-card:hover .card-img { transform: scale(1.08); } /* Zoom effect */
+
+        .tag-badge {
+            position: absolute; top: 20px; left: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 6px 14px; border-radius: 30px;
+            font-size: 0.75rem; font-weight: 700; color: var(--primary-red);
+            text-transform: uppercase; letter-spacing: 0.5px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .card-content { padding: 25px; flex-grow: 1; display: flex; flex-direction: column; }
+        .card-title { font-size: 1.35rem; font-weight: 700; margin-bottom: 12px; color: var(--text-dark); line-height: 1.4; }
+        .card-desc { font-size: 0.95rem; color: var(--text-light); margin-bottom: 20px; line-height: 1.6; }
+        
+        .read-more { 
+            margin-top: auto; text-decoration: none; color: var(--primary-red); 
+            font-weight: 700; display: inline-flex; align-items: center; gap: 5px;
+            font-size: 0.9rem;
+        }
+        .read-more i { transition: transform 0.3s; }
+        .read-more:hover i { transform: translateX(5px); }
+
+        .hidden { display: none; }
+
+        /* ==================== 
+           6. MODAL STYLING 
+           ==================== */
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); justify-content: center; align-items: center; z-index: 2000; }
+        .modal-box { background: #fff; padding: 2.5rem; border-radius: 20px; width: 90%; max-width: 450px; position: relative; box-shadow: 0 25px 50px rgba(0,0,0,0.2); animation: fadeUp 0.3s ease; }
+        .close-modal { position: absolute; top: 20px; right: 25px; font-size: 1.5rem; cursor: pointer; color: #ccc; transition: 0.2s; }
+        .close-modal:hover { color: var(--primary-red); }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; color: var(--dark-navy); }
+        .form-group input, .form-group select { width: 100%; padding: 12px 15px; border: 2px solid #eee; border-radius: 10px; transition: 0.3s; outline: none; font-size: 1rem; }
+        .form-group input:focus, .form-group select:focus { border-color: var(--primary-red); }
+
+        /* Mobile Adjustments */
+        @media (max-width: 768px) {
+            .hero { padding: 4rem 1rem 6rem; border-radius: 0 0 30px 30px; clip-path: none; }
+            .hero h1 { font-size: 2.2rem; }
+            .filter-container { margin-top: 20px; gap: 10px; justify-content: flex-start; overflow-x: auto; padding-bottom: 10px; padding-left: 20px; }
+            .filter-btn { white-space: nowrap; padding: 10px 20px; }
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="Go Masters.png" alt="Go Masters Abroad" class="logo-img">
+        <nav>
+            <button class="btn btn-register" onclick="toggleModal()">Register Now</button>
+            <a href="https://www.instagram.com/gomasters.hyd/" target="_blank" class="btn btn-consult">
+                Get Free Consultation
+            </a>
+        </nav>
+    </header>
+
+    <div class="modal-overlay" id="regModal">
+        <div class="modal-box">
+            <span class="close-modal" onclick="toggleModal()">&times;</span>
+            <h2 style="margin-bottom: 10px; color: var(--dark-navy);">Start Your Journey</h2>
+            <p style="margin-bottom: 25px; color: #666; font-size: 0.9rem;">Fill in your details to get a personalized roadmap.</p>
+            
+            <form action="https://formspree.io/f/xnjqkeev" method="POST">
+                <div class="form-group">
+                    <label>Full Name</label>
+                    <input type="text" name="full_name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" name="email" placeholder="kumar@gmail.com" required>
+                </div>
+                <div class="form-group">
+                    <label>Dream Destination</label>
+                    <select name="destination">
+                        <option value="USA">USA</option>
+                        <option value="UK">UK</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Europe">Europe</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-consult" style="width: 100%; padding: 15px;">Submit Registration</button>
+            </form>
+        </div>
+    </div>
+
+    <section class="hero">
+        <h1>Your Gateway to Global Education</h1>
+        <p>Expert guidance on scholarships, visas, and university admissions.</p>
+    </section>
+
+    <div class="filter-container">
+        <button class="filter-btn active" data-filter="all"><i class="fas fa-globe"></i> All</button>
+        <button class="filter-btn" data-filter="usa"><i class="fas fa-flag-usa"></i> USA</button>
+        <button class="filter-btn" data-filter="uk"><i class="fas fa-landmark"></i> UK</button>
+        <button class="filter-btn" data-filter="visa"><i class="fas fa-passport"></i> Visa Tips</button>
+        <button class="filter-btn" data-filter="scholarship"><i class="fas fa-graduation-cap"></i> Scholarships</button>
+    </div>
+
+    <div class="container">
+        <div class="blog-grid" id="blogGrid">
+            
+            <article class="blog-card" data-category="usa">
+                <div class="card-img-wrapper">
+                    <span class="tag-badge">USA</span>
+                    <img src="https://images.unsplash.com/photo-1623941000831-d85c3b99671d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="University" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Top 10 Master's Programs in New York</h3>
+                    <p class="card-desc">Discover the best universities in the Big Apple for business degrees and tech opportunities.</p>
+                    <a href="article.html" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="visa">
+                <div class="card-img-wrapper">
+                    <span class="tag-badge">VISA GUIDE</span>
+                    <img src="https://images.unsplash.com/photo-1574950578143-858c6fc58922?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Visa" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">F1 Visa Interview Success Tips</h3>
+                    <p class="card-desc">How to answer consular questions with confidence and avoid common rejection reasons.</p>
+                    <a href="article.html" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card" data-category="uk">
+                <div class="card-img-wrapper">
+                    <span class="tag-badge">UK</span>
+                    <img src="https://images.unsplash.com/photo-1520986606214-8b456906c813?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="London" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Understanding the UK Graduate Route</h3>
+                    <p class="card-desc">Work in the UK for 2 years after completing your Master's degree. A complete guide.</p>
+                    <a href="article.html" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+             <article class="blog-card" data-category="usa">
+                <div class="card-img-wrapper">
+                    <span class="tag-badge">LIFESTYLE</span>
+                    <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Student" class="card-img">
+                </div>
+                <div class="card-content">
+                    <h3 class="card-title">Finding Accommodation Abroad</h3>
+                    <p class="card-desc">Tips for finding safe, affordable, and student-friendly housing before you land.</p>
+                    <a href="article.html" class="read-more">Read Article <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        function toggleModal() {
+            const modal = document.getElementById('regModal');
+            modal.style.display = (modal.style.display === 'flex') ? 'none' : 'flex';
+        }
+        window.onclick = function(e) {
+            const modal = document.getElementById('regModal');
+            if (e.target == modal) modal.style.display = "none";
+        }
+
+        // Filter Logic
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const blogCards = document.querySelectorAll('.blog-card');
+
+        function applyFilter(filterValue) {
+            filterBtns.forEach(b => {
+                b.classList.remove('active');
+                if(b.getAttribute('data-filter') === filterValue) b.classList.add('active');
+            });
+            blogCards.forEach(card => {
+                if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                    card.classList.remove('hidden');
+                    // Add animation re-trigger if desired
+                    card.style.animation = 'none';
+                    card.offsetHeight; /* trigger reflow */
+                    card.style.animation = 'fadeUp 0.5s ease forwards';
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                applyFilter(btn.getAttribute('data-filter'));
+            });
+        });
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const filterParam = urlParams.get('filter');
+            if (filterParam) applyFilter(filterParam);
+        };
+    </script>
+
+</body>
+</html>
