@@ -18,11 +18,11 @@
             --card-shadow: 0 10px 40px rgba(0,0,0,0.08);
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
-        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; scroll-behavior: smooth; }
 
         /* TICKER */
         .ticker-wrap { position: fixed; top: 0; width: 100%; height: 40px; background: #000; z-index: 2000; overflow: hidden; display: flex; align-items: center; }
-        .ticker { display: inline-block; white-space: nowrap; padding-left: 100%; animation: marquee 20s linear infinite; color: #fff; font-weight: 600; font-size: 0.85rem; }
+        .ticker { display: inline-block; white-space: nowrap; padding-left: 100%; animation: marquee 25s linear infinite; color: #fff; font-weight: 600; font-size: 0.85rem; }
         .ticker span { margin-right: 40px; }
         .ticker span i { color: #FFD700; margin-right: 5px; }
         @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
@@ -37,68 +37,143 @@
         .logo-img { height: 55px; object-fit: contain; } 
         nav { display: flex; align-items: center; gap: 15px; }
 
-        /* HERO - Fixed Image */
+        /* HERO */
         .hero { 
             background: linear-gradient(135deg, rgba(211, 16, 39, 0.85), rgba(26, 42, 108, 0.9)), 
                         url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
             background-size: cover; background-position: center;
             color: #fff; text-align: center; 
-            padding: 6rem 1rem 10rem; 
+            padding: 7rem 1rem 11rem; 
             clip-path: ellipse(150% 100% at 50% 0%);
         }
-        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
-        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 20px; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; margin-bottom: 25px; }
+
+        /* DYNAMIC BUTTON STYLES */
+        .dynamic-btn {
+            display: inline-block;
+            background: #fff;
+            color: var(--primary-red);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 800;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            min-width: 320px; /* Width fixed to prevent jumping */
+            white-space: nowrap;
+        }
+        .dynamic-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+        
+        /* SMOOTH ANIMATION FOR TEXT */
+        #offerText {
+            display: inline-block;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth Slide Effect */
+            opacity: 1;
+            transform: translateY(0);
+            color: var(--dark-navy);
+        }
+        .text-hidden {
+            opacity: 0 !important;
+            transform: translateY(10px) !important; /* Slide down effect */
+        }
 
         /* BUTTONS */
         .btn { padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; font-size: 0.9rem; white-space: nowrap; }
         .btn-register { border: 2px solid rgba(211, 16, 39, 0.1); color: var(--primary-red); }
         .btn-consult { background: var(--brand-gradient); color: #fff; box-shadow: 0 5px 15px rgba(211, 16, 39, 0.2); }
 
-        /* --- CARD LAYOUT LOGIC --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        /* SLIDER WRAPPER */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 0 60px; position: relative; }
         
-        .blog-grid { 
-            display: grid; 
-            /* WEB: Automatically fit as many 320px cards as possible horizontally */
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; 
-            margin-top: -80px; 
-            position: relative; 
-            z-index: 10; 
+        .slider-wrapper {
+            position: relative;
+            margin-top: -90px;
+            z-index: 10;
+            padding: 0 20px;
         }
 
+        .blog-grid { 
+            display: flex; 
+            overflow-x: auto; 
+            gap: 20px;
+            padding: 20px 10px 40px; 
+            scroll-snap-type: x mandatory; 
+            -webkit-overflow-scrolling: touch; 
+            scrollbar-width: none; 
+            scroll-behavior: smooth;
+        }
+        .blog-grid::-webkit-scrollbar { display: none; }
+
+        .slide-arrow {
+            position: absolute;
+            top: 45%;
+            transform: translateY(-50%);
+            width: 50px; height: 50px;
+            border-radius: 50%; background: #fff;
+            border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            color: var(--dark-navy); font-size: 1.2rem;
+            cursor: pointer; z-index: 20;
+            display: flex; align-items: center; justify-content: center;
+            transition: 0.3s;
+        }
+        .slide-arrow:hover { background: var(--dark-navy); color: #fff; }
+        .slide-arrow.left { left: 5px; }
+        .slide-arrow.right { right: 5px; }
+
         .blog-card { 
+            min-width: 300px; width: 300px;
             background: #fff; border-radius: 15px; overflow: hidden; 
             box-shadow: var(--card-shadow); display: flex; flex-direction: column; 
-            transition: 0.4s; 
+            transition: 0.4s; scroll-snap-align: center; flex: 0 0 auto; 
         }
         .blog-card:hover { transform: translateY(-10px); }
         
-        .card-img-wrapper { height: 200px; overflow: hidden; }
+        .card-img-wrapper { height: 180px; overflow: hidden; background: #eee; }
         .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
         .blog-card:hover .card-img { transform: scale(1.1); }
         
-        .card-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
-        .card-content h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark-navy); }
-        .card-content p { font-size: 0.95rem; color: #666; margin-bottom: 20px; line-height: 1.5; }
+        .card-content { padding: 20px; display: flex; flex-direction: column; flex: 1; }
+        .card-content h3 { font-size: 1.3rem; margin-bottom: 8px; color: var(--dark-navy); }
+        .card-content p { font-size: 0.9rem; color: #666; margin-bottom: 15px; line-height: 1.5; }
         .read-more { margin-top: auto; color: var(--primary-red); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 5px; }
 
-        footer { background: var(--dark-navy); color: #fff; padding: 40px 20px; text-align: center; margin-top: auto; }
-        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px; }
+        /* FOOTER & REGISTRATION */
+        footer { background: var(--dark-navy); color: #fff; padding-top: 60px; text-align: center; position: relative; margin-top: auto; }
+        
+        .footer-reg-wrapper {
+            background: white; color: #333; max-width: 800px; margin: 0 auto 50px;
+            padding: 40px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            position: relative; top: -30px;
+        }
 
-        /* --- MOBILE OPTIMIZATION --- */
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
+        .form-input { width: 100%; padding: 12px; border: 2px solid #eee; background: #f9f9f9; border-radius: 10px; font-size: 0.95rem; outline: none; transition: 0.3s; }
+        .form-input:focus { border-color: var(--primary-red); background: #fff; }
+        
+        .submit-btn {
+            background: var(--brand-gradient); color: white; border: none;
+            padding: 15px 40px; border-radius: 50px; font-size: 1rem;
+            font-weight: bold; cursor: pointer; width: 100%; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(211, 16, 39, 0.3);
+        }
+        .submit-btn:hover { transform: translateY(-3px); }
+        .footer-links { padding-bottom: 30px; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px; font-size: 0.9rem; }
+
         @media (max-width: 768px) {
             header { flex-direction: column; gap: 15px; padding: 15px; }
             .logo-img { height: 45px; }
-            .hero { padding: 5rem 1rem 6rem; clip-path: none; border-radius: 0 0 30px 30px; }
+            .hero { padding: 5rem 1rem 7rem; border-radius: 0 0 30px 30px; clip-path: none; }
             .hero h1 { font-size: 2rem; }
-            
-            /* MOBILE: Force 1 column (Vertical Stack) */
-            .blog-grid { 
-                grid-template-columns: 1fr; 
-                margin-top: -40px; 
-                gap: 20px; 
-            }
+            .dynamic-btn { min-width: auto; padding: 12px 20px; font-size: 0.95rem; }
+            .slider-wrapper { margin-top: -50px; padding: 0; }
+            .slide-arrow { display: none; }
+            .blog-grid { padding-left: 20px; padding-right: 20px; gap: 15px; }
+            .blog-card { min-width: 280px; width: 280px; }
+            .footer-reg-wrapper { width: 90%; padding: 25px; }
+            .form-grid { grid-template-columns: 1fr; }
             .ticker { animation: marquee 15s linear infinite; }
         }
     </style>
@@ -124,76 +199,142 @@
     <section class="hero">
         <h1>Your Gateway to Global Education</h1>
         <p>Expert guidance for USA, UK, Australia, Canada & Europe Admissions.</p>
+        
+        <a href="#register-form" class="dynamic-btn" id="changingBtn">
+            Want to avail <span id="offerText">100% Scholarships?</span>
+        </a>
     </section>
 
     <div class="container">
-        <div class="blog-grid">
+        <p style="text-align:center; color:#999; font-size:0.8rem; margin-top: -10px; margin-bottom: 5px;">
+            <i class="fas fa-hand-pointer"></i> Swipe or use arrows
+        </p>
+        
+        <div class="slider-wrapper">
+            <button class="slide-arrow left" onclick="slideLeft()"><i class="fas fa-chevron-left"></i></button>
             
-            <article class="blog-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="USA">
-                </div>
-                <div class="card-content">
-                    <h3>Study in USA</h3>
-                    <p>Ivy League universities, F1 visa tips, and 3-year OPT STEM opportunities.</p>
-                    <a href="usa.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
+            <div class="blog-grid" id="cardSlider">
+                
+                <article class="blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="USA">
+                    </div>
+                    <div class="card-content">
+                        <h3>Study in USA</h3>
+                        <p>Ivy League universities, F1 visa tips, and 3-year OPT STEM opportunities.</p>
+                        <a href="usa.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
 
-            <article class="blog-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="UK">
-                </div>
-                <div class="card-content">
-                    <h3>Study in UK</h3>
-                    <p>Masters without IELTS, 2-year Graduate Route Visa, and 1-year degrees.</p>
-                    <a href="uk.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
+                <article class="blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="UK">
+                    </div>
+                    <div class="card-content">
+                        <h3>Study in UK</h3>
+                        <p>Masters without IELTS, 2-year Graduate Route Visa, and 1-year degrees.</p>
+                        <a href="uk.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
 
-            <article class="blog-card">
-                <div class="card-img-wrapper">
-                    <img src="https://www.timeshighereducation.com/student/sites/default/files/cbh_rhul_arch1_0026v1_1_0.jpg" class="card-img" alt="Australia">
-                </div>
-                <div class="card-content">
-                    <h3>Study in Australia</h3>
-                    <p>Group of 8 Universities, high minimum wage, and up to 4 years PSW visa.</p>
-                    <a href="australia.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
+                <article class="blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://t4.ftcdn.net/jpg/00/13/72/85/360_F_13728596_mykteLNu7hi1RC0lqdsvNDrNh8Y84xAg.jpg" class="card-img" alt="Australia">
+                    </div>
+                    <div class="card-content">
+                        <h3>Study in Australia</h3>
+                        <p>Group of 8 Universities, high minimum wage, and up to 4 years PSW visa.</p>
+                        <a href="australia.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
 
-            <article class="blog-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Canada">
-                </div>
-                <div class="card-content">
-                    <h3>Study in Canada</h3>
-                    <p>The best pathway to PR. Affordable PGWP options and SDS Visa processing.</p>
-                    <a href="canada.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
+                <article class="blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Canada">
+                    </div>
+                    <div class="card-content">
+                        <h3>Study in Canada</h3>
+                        <p>The best pathway to PR. Affordable PGWP options and SDS Visa processing.</p>
+                        <a href="canada.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
 
-            <article class="blog-card">
-                <div class="card-img-wrapper">
-                    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Europe">
-                </div>
-                <div class="card-content">
-                    <h3>Study in Europe</h3>
-                    <p>Germany (Free Tuition), Ireland (IT Hub), and France business schools.</p>
-                    <a href="europe.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
-                </div>
-            </article>
+                <article class="blog-card">
+                    <div class="card-img-wrapper">
+                        <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Europe">
+                    </div>
+                    <div class="card-content">
+                        <h3>Study in Europe</h3>
+                        <p>Germany (Free Tuition), Ireland (IT Hub), and France business schools.</p>
+                        <a href="europe.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
 
+            </div>
+            
+            <button class="slide-arrow right" onclick="slideRight()"><i class="fas fa-chevron-right"></i></button>
         </div>
     </div>
 
     <footer>
+        
+        <div class="footer-reg-wrapper" id="register-form">
+            <h2 style="color:var(--dark-navy); margin-bottom:10px;">Get Your Free Roadmap</h2>
+            <p style="margin-bottom:30px; color:#666;">Fill in your details to check scholarship eligibility.</p>
+            
+            <form action="https://formspree.io/f/xnjqkeev" method="POST">
+                <div class="form-grid">
+                    <input type="text" name="name" class="form-input" placeholder="Full Name" required>
+                    <input type="text" name="place" class="form-input" placeholder="City" required>
+                    <input type="tel" name="whatsapp" class="form-input" placeholder="WhatsApp Number" required>
+                    <input type="email" name="email" class="form-input" placeholder="Gmail Address" required>
+                </div>
+                <button type="submit" class="submit-btn">
+                    Apply Now & Avail Scholarships <i class="fas fa-paper-plane"></i>
+                </button>
+                <p style="margin-top:15px; font-size:0.8rem; color:#888;">
+                    <i class="fas fa-check-circle"></i> We respect your privacy.
+                </p>
+            </form>
+        </div>
+
         <div class="footer-links">
             <a href="about.html">Contact Us</a>
+            <a href="about.html">About Us</a>
             <a href="#">Privacy Policy</a>
             <a href="https://www.instagram.com/gomasters.hyd/">Instagram</a>
         </div>
-        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">&copy; 2024 Go Masters Hyderabad.</p>
+        <p style="padding-bottom: 20px; font-size: 0.8rem; color: #aaa;">
+            &copy; 2024 Go Masters Hyderabad. All rights reserved.
+        </p>
     </footer>
+
+    <script>
+        const offers = [
+            "100% Scholarships?",
+            "Free Flight Ticket?",
+            "Admission Letter in 7 Days?",
+            "Zero Processing Fee?"
+        ];
+        let i = 0;
+        const textSpan = document.getElementById("offerText");
+        
+        setInterval(() => {
+            // 1. Add class to slide out/fade out
+            textSpan.classList.add("text-hidden");
+            
+            // 2. Wait for animation (500ms), change text, then slide back in
+            setTimeout(() => {
+                i = (i + 1) % offers.length;
+                textSpan.innerText = offers[i];
+                textSpan.classList.remove("text-hidden");
+            }, 500); 
+        }, 3000); // Wait 3 seconds before next change
+
+        const slider = document.getElementById('cardSlider');
+        function slideLeft() { slider.scrollBy({ left: -320, behavior: 'smooth' }); }
+        function slideRight() { slider.scrollBy({ left: 320, behavior: 'smooth' }); }
+    </script>
+
 </body>
 </html>
