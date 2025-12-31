@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Masters Abroad | Best Study Abroad Consultants in Hyderabad</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-red: #D31027; 
+            --dark-navy: #1a2a6c;
+            --brand-gradient: linear-gradient(135deg, #D31027 0%, #1a2a6c 100%);
+            --bg-color: #f4f7f6;
+            --text-dark: #2d3436;
+            --card-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Outfit', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); display: flex; flex-direction: column; min-height: 100vh; overflow-x: hidden; }
+
+        /* TICKER */
+        .ticker-wrap { position: fixed; top: 0; width: 100%; height: 40px; background: #000; z-index: 2000; overflow: hidden; display: flex; align-items: center; }
+        .ticker { display: inline-block; white-space: nowrap; padding-left: 100%; animation: marquee 20s linear infinite; color: #fff; font-weight: 600; font-size: 0.85rem; }
+        .ticker span { margin-right: 40px; }
+        .ticker span i { color: #FFD700; margin-right: 5px; }
+        @keyframes marquee { 0% { transform: translate(0, 0); } 100% { transform: translate(-100%, 0); } }
+
+        /* HEADER */
+        header { 
+            background: rgba(255, 255, 255, 0.98); padding: 10px 5%; 
+            display: flex; justify-content: space-between; align-items: center; 
+            box-shadow: 0 4px 30px rgba(0,0,0,0.03); 
+            position: sticky; top: 40px; z-index: 1000; 
+        }
+        .logo-img { height: 55px; object-fit: contain; } 
+        nav { display: flex; align-items: center; gap: 15px; }
+
+        /* HERO - Fixed Image */
+        .hero { 
+            background: linear-gradient(135deg, rgba(211, 16, 39, 0.85), rgba(26, 42, 108, 0.9)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover; background-position: center;
+            color: #fff; text-align: center; 
+            padding: 6rem 1rem 10rem; 
+            clip-path: ellipse(150% 100% at 50% 0%);
+        }
+        .hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 15px; text-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        .hero p { font-size: 1.1rem; opacity: 0.9; max-width: 600px; margin: 0 auto; }
+
+        /* BUTTONS */
+        .btn { padding: 10px 20px; border-radius: 50px; text-decoration: none; font-weight: 700; transition: 0.3s; font-size: 0.9rem; white-space: nowrap; }
+        .btn-register { border: 2px solid rgba(211, 16, 39, 0.1); color: var(--primary-red); }
+        .btn-consult { background: var(--brand-gradient); color: #fff; box-shadow: 0 5px 15px rgba(211, 16, 39, 0.2); }
+
+        /* --- CARD LAYOUT LOGIC --- */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
+        
+        .blog-grid { 
+            display: grid; 
+            /* WEB: Automatically fit as many 320px cards as possible horizontally */
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; 
+            margin-top: -80px; 
+            position: relative; 
+            z-index: 10; 
+        }
+
+        .blog-card { 
+            background: #fff; border-radius: 15px; overflow: hidden; 
+            box-shadow: var(--card-shadow); display: flex; flex-direction: column; 
+            transition: 0.4s; 
+        }
+        .blog-card:hover { transform: translateY(-10px); }
+        
+        .card-img-wrapper { height: 200px; overflow: hidden; }
+        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+        .blog-card:hover .card-img { transform: scale(1.1); }
+        
+        .card-content { padding: 25px; display: flex; flex-direction: column; flex: 1; }
+        .card-content h3 { font-size: 1.4rem; margin-bottom: 10px; color: var(--dark-navy); }
+        .card-content p { font-size: 0.95rem; color: #666; margin-bottom: 20px; line-height: 1.5; }
+        .read-more { margin-top: auto; color: var(--primary-red); font-weight: 700; text-decoration: none; display: flex; align-items: center; gap: 5px; }
+
+        footer { background: var(--dark-navy); color: #fff; padding: 40px 20px; text-align: center; margin-top: auto; }
+        .footer-links a { color: rgba(255,255,255,0.7); text-decoration: none; margin: 0 10px; }
+
+        /* --- MOBILE OPTIMIZATION --- */
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 15px; padding: 15px; }
+            .logo-img { height: 45px; }
+            .hero { padding: 5rem 1rem 6rem; clip-path: none; border-radius: 0 0 30px 30px; }
+            .hero h1 { font-size: 2rem; }
+            
+            /* MOBILE: Force 1 column (Vertical Stack) */
+            .blog-grid { 
+                grid-template-columns: 1fr; 
+                margin-top: -40px; 
+                gap: 20px; 
+            }
+            .ticker { animation: marquee 15s linear infinite; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="ticker-wrap">
+        <div class="ticker">
+            <span><i class="fas fa-plane"></i> Free Flight Tickets for Top 3 Students!</span>
+            <span><i class="fas fa-graduation-cap"></i> 100% Scholarships Available</span>
+            <span><i class="fas fa-passport"></i> Free Visa Mock Interviews</span>
+        </div>
+    </div>
+
+    <header>
+        <img src="Go Masters.png" alt="Go Masters Logo" class="logo-img">
+        <nav>
+            <a href="about.html" class="btn btn-register">About Us</a>
+            <a href="https://wa.me/917337267648" class="btn btn-consult"><i class="fab fa-whatsapp"></i> Chat</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Your Gateway to Global Education</h1>
+        <p>Expert guidance for USA, UK, Australia, Canada & Europe Admissions.</p>
+    </section>
+
+    <div class="container">
+        <div class="blog-grid">
+            
+            <article class="blog-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1550684848-fac1c5b4e853?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="USA">
+                </div>
+                <div class="card-content">
+                    <h3>Study in USA</h3>
+                    <p>Ivy League universities, F1 visa tips, and 3-year OPT STEM opportunities.</p>
+                    <a href="usa.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="UK">
+                </div>
+                <div class="card-content">
+                    <h3>Study in UK</h3>
+                    <p>Masters without IELTS, 2-year Graduate Route Visa, and 1-year degrees.</p>
+                    <a href="uk.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="card-img-wrapper">
+                    <img src="https://www.timeshighereducation.com/student/sites/default/files/cbh_rhul_arch1_0026v1_1_0.jpg" class="card-img" alt="Australia">
+                </div>
+                <div class="card-content">
+                    <h3>Study in Australia</h3>
+                    <p>Group of 8 Universities, high minimum wage, and up to 4 years PSW visa.</p>
+                    <a href="australia.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1517935706615-2717063c2225?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Canada">
+                </div>
+                <div class="card-content">
+                    <h3>Study in Canada</h3>
+                    <p>The best pathway to PR. Affordable PGWP options and SDS Visa processing.</p>
+                    <a href="canada.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+            <article class="blog-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" class="card-img" alt="Europe">
+                </div>
+                <div class="card-content">
+                    <h3>Study in Europe</h3>
+                    <p>Germany (Free Tuition), Ireland (IT Hub), and France business schools.</p>
+                    <a href="europe.html" class="read-more">View Details <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </article>
+
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-links">
+            <a href="about.html">Contact Us</a>
+            <a href="#">Privacy Policy</a>
+            <a href="https://www.instagram.com/gomasters.hyd/">Instagram</a>
+        </div>
+        <p style="margin-top: 20px; font-size: 0.8rem; color: #aaa;">&copy; 2024 Go Masters Hyderabad.</p>
+    </footer>
+</body>
+</html>

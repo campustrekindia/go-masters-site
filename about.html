@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Go Masters Hyderabad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        :root { --primary-red: #D31027; --dark-navy: #1a2a6c; --bg-color: #f4f7f6; --text-dark: #2d3436; }
+        body { font-family: 'Outfit', sans-serif; background: var(--bg-color); color: var(--text-dark); margin: 0; padding-bottom: 50px; }
+        
+        .header-bar { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; }
+        .logo-small { height: 40px; object-fit: contain; }
+        .home-btn { text-decoration: none; color: var(--dark-navy); font-weight: bold; display: flex; align-items: center; gap: 5px; }
+
+        .contact-hero { text-align: center; padding: 60px 20px 80px; background: var(--dark-navy); color: white; border-radius: 0 0 30px 30px; }
+        .contact-card { background: white; color: #333; max-width: 500px; margin: -50px auto 40px; padding: 30px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); width: 90%; }
+        .contact-item { font-size: 1rem; margin-bottom: 15px; display: flex; align-items: center; gap: 15px; border-bottom: 1px solid #f0f0f0; padding-bottom: 15px; }
+        .contact-item i { color: var(--primary-red); font-size: 1.2rem; width: 30px; text-align: center; }
+
+        .story-section { max-width: 800px; margin: 40px auto; padding: 0 20px; text-align: center; }
+        .highlight-text { background: #fff0f0; padding: 2px 8px; border-radius: 5px; color: var(--primary-red); font-weight: 600; }
+
+        .services-container { max-width: 900px; margin: 40px auto; padding: 0 20px; }
+        .toggle-wrapper { display: flex; justify-content: center; margin-bottom: 30px; background: #e0e0e0; padding: 4px; border-radius: 50px; max-width: 350px; margin-left: auto; margin-right: auto; }
+        .toggle-btn { flex: 1; padding: 10px 0; border-radius: 50px; border: none; cursor: pointer; font-weight: 700; font-size: 0.95rem; transition: 0.3s; background: transparent; color: #666; }
+        .toggle-btn.active { background: white; color: var(--primary-red); box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        
+        /* SERVICES GRID: Responsive */
+        .service-list { display: none; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; animation: fadeIn 0.5s; }
+        .service-list.show { display: grid; }
+        .service-item { background: white; padding: 20px; border-radius: 15px; border-left: 5px solid #eee; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .service-item.premium { border-left-color: #FFD700; }
+        .service-item.normal { border-left-color: var(--primary-red); }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Mobile Fixes */
+        @media (max-width: 768px) {
+            .contact-hero h1 { font-size: 1.8rem; }
+            .story-section p { font-size: 0.95rem; text-align: justify; }
+            .service-list { grid-template-columns: 1fr; } /* Stack services on mobile */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header-bar">
+        <img src="Go Masters.png" alt="Logo" class="logo-small">
+        <a href="index.html" class="home-btn"><i class="fas fa-arrow-left"></i> Home</a>
+    </div>
+
+    <div class="contact-hero">
+        <h1>Here to Guide You.</h1>
+        <p>Visit our office or call us for a free evaluation.</p>
+    </div>
+
+    <div class="contact-card">
+        <div class="contact-item">
+            <i class="fas fa-phone-alt"></i> 
+            <div><small style="color:#999;">Call / WhatsApp</small><br><strong>+91 73372 67648</strong></div>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-envelope"></i> 
+            <div><small style="color:#999;">Email</small><br><strong>gomastershyderabad@gmail.com</strong></div>
+        </div>
+        <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i> 
+            <div><small style="color:#999;">Location</small><br><span>Dilsukhnagar, Hyderabad, Telangana</span></div>
+        </div>
+        <a href="tel:+917337267648" style="display:block; text-align:center; background: var(--primary-red); color: white; padding: 12px; margin-top: 15px; border-radius: 10px; text-decoration: none; font-weight: bold;">Call Us Now</a>
+    </div>
+
+    <div class="story-section">
+        <h2 style="color:var(--dark-navy);">From Hyderabad to the World</h2>
+        <p>Go Masters started with a simple observation: students in Hyderabad were getting generic advice. <span class="highlight-text">We decided to change that.</span> We are a team of passionate educationists who believe every student's story is unique. We prepare you to face the Visa Officer with confidence.</p>
+    </div>
+
+    <div class="services-container">
+        <h2 style="text-align: center; margin-bottom: 20px; color: var(--dark-navy);">Our Plans</h2>
+        <div class="toggle-wrapper">
+            <button class="toggle-btn active" onclick="switchService('normal')">Normal</button>
+            <button class="toggle-btn" onclick="switchService('premium')">Premium</button>
+        </div>
+
+        <div id="normal-services" class="service-list show">
+            <div class="service-item normal"><h3><i class="fas fa-university"></i> University Shortlisting</h3><p>Curated list of 8-10 universities.</p></div>
+            <div class="service-item normal"><h3><i class="fas fa-file-alt"></i> SOP Assistance</h3><p>Standard proofreading and editing.</p></div>
+            <div class="service-item normal"><h3><i class="fas fa-passport"></i> Visa Filing</h3><p>DS-160/Visa Application filling.</p></div>
+        </div>
+
+        <div id="premium-services" class="service-list">
+            <div class="service-item premium"><h3><i class="fas fa-hand-holding-usd"></i> Loan Assistance</h3><p>Help with Non-collateral loans.</p></div>
+            <div class="service-item premium"><h3><i class="fas fa-user-tie"></i> 1-on-1 Visa Mocks</h3><p>Training with former Visa officers.</p></div>
+            <div class="service-item premium"><h3><i class="fas fa-home"></i> Accommodation</h3><p>We find you a house before you land.</p></div>
+            <div class="service-item premium"><h3><i class="fas fa-plane-departure"></i> Flight Deals</h3><p>Exclusive student discounts.</p></div>
+        </div>
+    </div>
+
+    <script>
+        function switchService(type) {
+            document.querySelectorAll('.toggle-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            document.getElementById('normal-services').classList.remove('show');
+            document.getElementById('premium-services').classList.remove('show');
+            document.getElementById(type + '-services').classList.add('show');
+        }
+    </script>
+</body>
+</html>
